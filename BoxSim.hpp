@@ -10,7 +10,8 @@ public:
 
     void run(); //runs a log
     double proxCN(double x);
-    double BoxSimulator(double relLinVel[6]); 
+    double BoxSimulator(double relLinVel[6], int endframe); 
     void hat(double iets[], int size);
     void print(matrix const& M);
+    void printv(vec const& v);
 };

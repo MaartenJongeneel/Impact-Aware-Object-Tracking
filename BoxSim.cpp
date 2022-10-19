@@ -1,10 +1,8 @@
 #include "BoxSim.hpp"
 
 
-using namespace std;
-
-typedef vector<double> vec;
-typedef vector<vec> matrix;
+typedef std::vector<double> vec;
+typedef std::vector<vec> matrix;
 
 
 
@@ -17,21 +15,35 @@ int main()
 
 void BoxSim::run(){
     double x[] = {1,2,3,4,5,6};
-    std::cout << "Length of array = " << sizeof(x)/sizeof(x[0]) << std::endl;
+    int size = sizeof(x)/sizeof(x[0]);
+    std::cout << "Length of array = " << size << std::endl;
     // std::cin >> x[3];
-    hat(x,sizeof(x)/sizeof(x[0]));
-    // double y = proxCN(x);
-    // std::cout<<"The max returns: "<< y << "\n";
+    hat(x,size);
+    BoxSimulator(x,5);
 }
 
 
-double BoxSim::BoxSimulator(double BV_AB[6]){
+
+
+
+
+// -------------------------------- Functions Below ----------------------------- //
+double BoxSim::BoxSimulator(double BV_AB[6], int endframe){
 
 //User settings
-double g = 9.81;    //Gravitational acceleration              [m/s^2]
-double a = 0.01;    //Error tol for fixed-point               [-]
-double tol = 1e-7;  //Error tol for fixed-point               [-]
+double g = 9.81;                     //Gravitational acceleration     [m/s^2]
+double a = 0.01;                     //Error tol for fixed-point      [-]
+double tol = 1e-7;                   //Error tol for fixed-point      [-]
+std::vector<double> PNfull(8, 0.0);  //Initial guess for momenta PN   [N*s]
+std::vector<double> PTfull(16, 0.0); //Initial guess for momenta PN   [N*s]
+bool run = true;                     //Boolean to run and stop sim    [-] 
 
+
+
+int ii;
+if(ii==endframe){
+    run = false;
+}
 
 //temp:
 return 0;
@@ -40,8 +52,6 @@ return 0;
 
 
 
-
-// -------------------------------- Functions Below -----------------------------
 //Proximal Point Normal Direction
 double BoxSim::proxCN(double x){
     double y;
@@ -80,9 +90,16 @@ void BoxSim::print(matrix const& M) {
     size_t n = M.size();
     for(size_t i = 0; i < n; ++i) {
         for(size_t j = 0; j < n; ++j)
-            cout << M[i][j] << ' ';
-        cout << '\n';
+            std::cout << M[i][j] << ' ';
+        std::cout << '\n';
     }
 }
 
-
+// Print vector to the screen
+void BoxSim::printv(vec const& v) {
+    size_t n = v.size();
+    for(size_t i = 0; i < n; ++i) {
+            std::cout << v[i] << ' ';
+        std::cout << '\n';
+    }
+}
